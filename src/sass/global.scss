@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Sofia Sans', sans-serif;
+  font-size: 15px;
+  line-height: 17px;
+  color: $whitesmoke;
+  min-height: 380px;
+  min-height: 100vh;
+  background: $gradient1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: $tablet) {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  @media (min-width: $desktop) {
+    font-size: 20px;
+    line-height: 23px;
+  }
+}
+
+.main-content {
+  margin: 0 auto;
+  padding: 15px 20px;
+
+  @media (min-width: $tablet) {
+    padding: 25px 40px;
+  }
+
+  @media (min-width: $desktop) {
+    padding: 40px 100px;
+  }
+}
