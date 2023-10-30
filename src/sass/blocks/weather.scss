@@ -100,19 +100,19 @@
 
   &--basic {
     &::before {
-      background-image: url("/src/icons/cloud.svg");
+      background-image: url("/public/icons/cloud.svg");
     }
   }
 
   &--temp {
     &::before {
-      background-image: url("/src/icons/temp.svg");
+      background-image: url("/public/icons/temp.svg");
     }
   }
 
   &--wind {
     &::before {
-      background-image: url("/src/icons/wind.svg");
+      background-image: url("/public/icons/wind.svg");
     }
   }
 

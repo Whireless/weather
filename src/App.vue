@@ -22,10 +22,10 @@ export default {
         Snow: 'Идёт снег',
       },
       weatherPic: [
-        '/weather/src/img/weather/clear.jpeg',
-        '/weather/src/img/weather/clouds.jpeg',
-        '/weather/src/img/weather/rain.jpeg',
-        '/weather/src/img/weather/snow.jpeg',
+        'img/weather/clear.jpeg',
+        'img/weather/clouds.jpeg',
+        'img/weather/rain.jpeg',
+        'img/weather/snow.jpeg',
       ],
     }
   },
