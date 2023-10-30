@@ -148,7 +148,7 @@ export default {
     </section>
     <footer class="main-footer">
       <p class="main-footer__dev">Разработано: <a href="https://github.com/Whireless">Whireless</a></p>
-      <p class="main-footer__version">Версия: 1.0.2</p>
+      <p class="main-footer__version">Версия: 1.0.3</p>
     </footer>
   </main>
 </template>
