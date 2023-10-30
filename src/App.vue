@@ -15,6 +15,18 @@ export default {
         gust: '',
         deg: '',
       },
+      weatherList: {
+        Clear: 'Ясная погода',
+        Clouds: 'Облачная погода',
+        Rain: 'Идёт дождь',
+        Snow: 'Идёт снег',
+      },
+      weatherPic: [
+        '/weather/src/img/weather/clear.jpeg',
+        '/weather/src/img/weather/clouds.jpeg',
+        '/weather/src/img/weather/rain.jpeg',
+        '/weather/src/img/weather/snow.jpeg',
+      ],
     }
   },
   computed: {
@@ -61,15 +73,8 @@ export default {
       }
     },
     getState() {
-      const weather = {
-        Clear: 'Ясная погода',
-        Clouds: 'Облачная погода',
-        Rain: 'Идёт дождь',
-        Snow: 'Идёт снег',
-      };
-
-      const weatherKey = Object.keys(weather);
-      const weatherValue = Object.values(weather);
+      const weatherKey = Object.keys(this.weatherList);
+      const weatherValue = Object.values(this.weatherList);
 
       weatherKey.forEach((w, i) => {
         if (this.state === w) {
@@ -98,8 +103,16 @@ export default {
           this.wind.gust = 'без порывов'
         }
         this.wind.deg = res.data.wind.deg;
+      })
+    },
+    getBg() {
+      const page = document.querySelector('body');
+      const weatherValue = Object.values(this.weatherList);
 
-        console.log(res.data.weather);
+        weatherValue.forEach((w, i) => {
+        if(this.state === w) {
+          return page.setAttribute('style', `background-image: url("${this.weatherPic[i]}")`);
+        } 
       })
     },
   },
@@ -107,11 +120,12 @@ export default {
 </script>
 
 <template>
-<div class="preloader">
+{{getBg()}}
+  <div class="preloader">
     <div class="preloader__logo">{{ preloader }}</div>
   </div>
   <main class="main-content">
-    <h1 class="weather__title">Введи город или населённый пункт:</h1>
+    <h2 class="weather__title">Введи город или населённый пункт:</h2>
     <section class="weather">
       <input class="weather__input-city" v-model="city" type="text"  placeholder="напр.: Москва">
       <button class="weather__button weather__button--go" v-if="city !== '' && city.length > 1" @click="getWeather()">Узнать погоду!</button>
@@ -133,7 +147,8 @@ export default {
       </div>
     </section>
     <footer class="main-footer">
-      <p class="main-footer__dev">Разработано: <a href="https://github.com/Whireless" class="main-footer__dev">Whireless</a></p>
+      <p class="main-footer__dev">Разработано: <a href="https://github.com/Whireless">Whireless</a></p>
+      <p class="main-footer__version">Версия: 1.0.2</p>
     </footer>
   </main>
 </template>
