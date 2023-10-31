@@ -1,27 +1,29 @@
-.weather {
-  letter-spacing: 1px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  backdrop-filter: blur(60px);
-  z-index: 30;
-  border-radius: 40px;
-  padding: 30px;
-}
-
-.weather__title {
+.weather__intro {
   color: $whitesmoke;
   text-align: center;
   line-height: 28px;
   display: block;
-  background-color: $lightBlack;
+  backdrop-filter: $blur;
   margin-bottom: 20px;
   padding: 15px 20px;
+  border: 1px solid $whitesmoke;
   border-radius: 40px;
+}
+
+.weather__form {
+  letter-spacing: 1px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  backdrop-filter: $blur;
+  border: 1px solid $whitesmoke;
+  border-radius: 40px;
+  padding: 30px;
 }
 
 .weather__input-city {
   width: 210px;
+  height: 30px;
   padding: 7px 10px;
   border: none;
   border-radius: 30px;
@@ -49,9 +51,14 @@
   border-radius: 30px;
   transition: $transition;
 
+  @media (min-width: $tablet) {
+    margin-top: 45px;
+  }
+
   @media (min-width: $desktop) {
     width: 180px;
     height: 50px;
+    margin-top: 50px;
   }
 
   &--go {
@@ -72,19 +79,68 @@
 
 .weather__data {
   letter-spacing: 2px;
+  position: fixed;
+  top: 7%;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
-  width: 100%;
-  margin-top: 30px;
+  backdrop-filter: $blur;
+  width: 290px;
+  border: 1px solid $whitesmoke;
+  border-radius: 40px;
+  padding: 25px;
+  z-index: 3;
+  opacity: 1;
+  transition: $transition;
+
+  @media (min-width: $tablet) {
+    width: 398px;
+  }
+
+  @media (min-width: $desktop) {
+    width: 548px;
+  }
+
+  &--hidden {
+    transition: $transition;
+    opacity: 0;
+    z-index: -1;
+  }
 }
 
-.weather__data-title {
+.weather__cancel {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border: none;
+  border: 1px solid $whitesmoke;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url("/icons/cross.svg");
+  margin-left: auto;
+
+  @media (min-width: $tablet) {
+    width: 45px;
+    height: 45px;
+  }
+
+  @media (min-width: $desktop) {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+.weather__title {
+  text-align: center;
+}
+
+.weather__subtitle {
   position: relative;
   align-self: center;
   width: max-content;
   padding: 10px 6px 10px 40px;
-  border: 2px solid $blue;
+  border: 1px solid $lightBlack;
   border-radius: 20px;
 
   &::before {
@@ -100,19 +156,19 @@
 
   &--basic {
     &::before {
-      background-image: url("/public/icons/cloud.svg");
+      background-image: url("/icons/cloud.svg");
     }
   }
 
   &--temp {
     &::before {
-      background-image: url("/public/icons/temp.svg");
+      background-image: url("/icons/temp.svg");
     }
   }
 
   &--wind {
     &::before {
-      background-image: url("/public/icons/wind.svg");
+      background-image: url("/icons/wind.svg");
     }
   }
 

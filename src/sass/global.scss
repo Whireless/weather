@@ -8,10 +8,10 @@ body {
   font-size: 15px;
   line-height: 17px;
   color: $whitesmoke;
-  min-height: 380px;
+  position: relative;
+  min-width: 380px;
   min-height: 100vh;
-  background: $gradient1;
-  background-image: url("/public/img/weather/basic.jpeg");
+  background-image: url("/img/rain.jpg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -31,14 +31,17 @@ body {
 }
 
 .main-content {
+  width: 340px;
   margin: 0 auto;
   padding: 15px 20px;
 
   @media (min-width: $tablet) {
+    width: 450px;
     padding: 25px 40px;
   }
 
   @media (min-width: $desktop) {
+    width: 600px;
     padding: 40px 100px;
   }
 }
