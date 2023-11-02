@@ -1,6 +1,6 @@
 {
   "name": "weather",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -17,9 +17,6 @@
     "eslint": "^8.49.0",
     "eslint-plugin-vue": "^9.17.0",
     "sass": "^1.69.4",
-    "sharp": "^0.32.6",
-    "svgo": "^3.0.2",
-    "vite": "^4.4.11",
-    "vite-plugin-image-optimizer": "^1.1.7"
+    "vite": "^4.4.11"
   }
 }

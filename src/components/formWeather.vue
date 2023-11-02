@@ -77,7 +77,6 @@ export default {
         } else if(deg >= 270 && deg < 360) {
           this.windData['Направление: '] = 'Северо-Западный';
         }
-
         this.weatherData = res.data;
       })
     },
@@ -87,6 +86,7 @@ export default {
 
 <template>
   <form class="weather__form" v-on:submit.prevent>
+    <h2 class="weather__form-title">Введи город или населённый пункт:</h2>
     <input class="weather__input-city" v-model.trim="city" type="text"  placeholder="напр.: Москва">
     <button class="weather__button weather__button--go" v-if="city !== '' && city.length > 1" v-on:click="getWeather()">Узнать погоду!</button>
     <button class="weather__button weather__button--no" v-else disabled>Узнать погоду!</button>

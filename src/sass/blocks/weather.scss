@@ -1,24 +1,27 @@
-.weather__intro {
-  color: $whitesmoke;
-  text-align: center;
-  line-height: 28px;
-  display: block;
-  backdrop-filter: $blur;
-  margin-bottom: 20px;
-  padding: 15px 20px;
-  border: 1px solid $whitesmoke;
-  border-radius: 40px;
-}
-
 .weather__form {
-  letter-spacing: 1px;
   display: flex;
   flex-direction: column;
   align-items: center;
   backdrop-filter: $blur;
   border: 1px solid $whitesmoke;
-  border-radius: 40px;
+  border-radius: 30px;
   padding: 30px;
+}
+
+.weather__form-title {
+  line-height: 26px;
+  text-align: center;
+  margin-bottom: 30px;
+
+  @media (min-width: $tablet) {
+    line-height: 29px;
+    margin-bottom: 40px;
+  }
+
+  @media (min-width: $desktop) {
+    line-height: 31px;
+    margin-bottom: 50px;
+  }
 }
 
 .weather__input-city {
@@ -46,19 +49,19 @@
   font-size: inherit;
   width: 165px;
   height: 40px;
-  margin-top: 35px;
+  margin-top: 25px;
   border: none;
   border-radius: 30px;
   transition: $transition;
 
   @media (min-width: $tablet) {
-    margin-top: 45px;
+    margin-top: 35px;
   }
 
   @media (min-width: $desktop) {
     width: 180px;
     height: 50px;
-    margin-top: 50px;
+    margin-top: 45px;
   }
 
   &--go {
@@ -79,15 +82,17 @@
 
 .weather__data {
   letter-spacing: 2px;
-  position: fixed;
-  top: 7%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
   backdrop-filter: $blur;
-  width: 290px;
+  width: 283px;
   border: 1px solid $whitesmoke;
-  border-radius: 40px;
+  margin: 0 auto;
+  border-radius: 30px;
   padding: 25px;
   z-index: 3;
   opacity: 1;
@@ -132,7 +137,16 @@
 }
 
 .weather__title {
+  line-height: 22px;
   text-align: center;
+
+  @media (min-width: $tablet) {
+    line-height: 24px;
+  }
+
+  @media (min-width: $desktop) {
+    line-height: 29px;
+  }
 }
 
 .weather__subtitle {

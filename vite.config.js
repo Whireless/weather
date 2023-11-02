@@ -1,7 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 
 export default defineConfig({
   base: '/weather',
@@ -13,11 +12,6 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    ViteImageOptimizer({
-      jpg: {
-        quality: 55,
-      },
-    }),
   ],
   resolve: {
     alias: {
