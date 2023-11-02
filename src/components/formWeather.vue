@@ -3,8 +3,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
+      // Название города
       city: '',
-      state: '',
+      // Данные для обработки текущей погоды
       weatherList: {
         Clear: 'Ясная погода',
         Clouds: 'Облачная погода',
@@ -12,6 +13,10 @@ export default {
         Snow: 'Идёт снег',
       },
       weatherData: '',
+      generalData: {
+        'Сейчас: ': '',
+        'Влажность: ': '',
+      },
       tempData: {
         'Фактическая: ': '',
         'Ощущается как: ': '',
@@ -21,30 +26,29 @@ export default {
         'Направление: ': '',
         'Порывы до: ': '',
       },
+      // Данные для обработки погоды на 5 дней
     }
   },
   computed: {
     nameCity() {
       return '«' + this.city + '»';
     },
-    getState() {
-      const weatherKey = Object.keys(this.weatherList);
-      const weatherValue = Object.values(this.weatherList);
-
-      weatherKey.forEach((w, i) => {
-        if (this.state === w) {
-          this.state = weatherValue[i];
-        }
-      });
-      return this.state;
-    },
   },
   methods: {
-    getWeather() {
+    // Получение актуальной погоды
+    getActualWeather() {
       axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
       .then(res => {
-        // Общее состояние
-        this.state = res.data.weather[0].main;
+        // Общее состояние и влажность
+        const weatherKey = Object.keys(this.weatherList);
+        const weatherValue = Object.values(this.weatherList);
+
+        weatherKey.forEach((w, i) => {
+          if (res.data.weather[0].main === w) {
+            this.generalData['Сейчас: '] = weatherValue[i];
+          }
+        });
+        this.generalData['Влажность: '] = `${res.data.main.humidity} %`;
 
         // Температура
         this.tempData['Фактическая: '] = `${Math.floor(res.data.main.temp)} °C`;
@@ -80,6 +84,10 @@ export default {
         this.weatherData = res.data;
       })
     },
+    // Получение прогноза на 5 дней
+    getForecastWeather() {
+      axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
+    },
   }
 }
 </script>
@@ -88,14 +96,16 @@ export default {
   <form class="weather__form" v-on:submit.prevent>
     <h2 class="weather__form-title">Введи город или населённый пункт:</h2>
     <input class="weather__input-city" v-model.trim="city" type="text"  placeholder="напр.: Москва">
-    <button class="weather__button weather__button--go" v-if="city !== '' && city.length > 1" v-on:click="getWeather()">Узнать погоду!</button>
+    <button class="weather__button weather__button--go" v-if="city !== '' && city.length > 1" v-on:click="getActualWeather">Узнать погоду!</button>
     <button class="weather__button weather__button--no" v-else disabled>Узнать погоду!</button>
   </form>
   <div v-bind:class="weatherData != '' ? 'weather__data' : 'weather__data weather__data--hidden'">
     <button class="weather__cancel" v-on:click="weatherData = ''"></button>
     <h2 class="weather__title">{{ nameCity }}</h2>
     <h3 class="weather__subtitle weather__subtitle--basic">Общее состояние:</h3>
-    <p class="weather__state">Сейчас: <span class="weather__info">{{ getState }}</span></p>
+    <ul class="weather__list weather__list--general">
+      <li v-for="(result, item) in generalData" v-bind:key="item">{{ item }}<span v-bind:class="'weather__info'">{{ result }}</span></li>
+    </ul>
     <h3 class="weather__subtitle weather__subtitle--temp">Температура:</h3>
     <ul class="weather__list weather__list--temp">
       <li v-for="(result, item) in tempData" v-bind:key="item">{{ item }}<span v-bind:class="'weather__info'">{{ result }}</span></li>

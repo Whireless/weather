@@ -15,14 +15,15 @@ export default {
 <template>
   <main class="main-content">
     <preloader></preloader>
-    <h1 class="main-content__title">.easyпогода <br>
-      <sup class="main-content__subtitle">только погода, ничего лишнего.</sup>
-    </h1>
+    <div class="main-content__intro">
+      <h1 class="main-content__title"><span class="weather__info">.easy</span>погода</h1>
+      <span class="main-content__subtitle">только погода, ничего лишнего.</span>
+    </div>
     <section class="weather">
       <form-weather></form-weather>
       <footer class="main-footer">
         <p class="main-footer__dev">Разработано: <a href="https://github.com/Whireless">Whireless</a></p>
-        <p class="main-footer__version">Версия: 1.0.5</p>
+        <p class="main-footer__version">Версия: 1.0.6</p>
       </footer>
     </section>
   </main>

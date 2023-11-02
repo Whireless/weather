@@ -15,9 +15,7 @@
   }
 }
 
-.main-content__title {
-  font-size: 23px;
-  line-height: 24px;
+.main-content__intro {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,15 +24,20 @@
   padding: 15px 20px;
   border: 1px solid $whitesmoke;
   border-radius: 30px;
+}
+
+.main-content__title {
+  font-size: 23px;
+  line-height: 27px;
 
   @media (min-width: $tablet) {
     font-size: 32px;
-    line-height: 34px;
+    line-height: 38px;
   }
 
   @media (min-width: $desktop) {
     font-size: 37px;
-    line-height: 38px;
+    line-height: 42px;
   }
 }
 
