@@ -190,8 +190,10 @@ export default {
   <form class="weather__form" v-on:submit.prevent>
     <h2 class="weather__form-title">Введи город или населённый пункт:</h2>
     <input class="weather__input-city" v-model.trim="city" type="text"  placeholder="напр.: Москва">
-    <button class="weather__button weather__button--actual" v-bind:disabled="isDisabled" v-on:click="getActualWeather()">Узнать актуальную погоду</button>
-    <button class="weather__button weather__button--forecast" v-bind:disabled="isDisabled" v-on:click="getForecastWeather()">Прогноз на 5 дней</button>
+    <div class="weather__button-block">
+      <button class="weather__button weather__button--actual" v-bind:disabled="isDisabled" v-on:click="getActualWeather()">Узнать актуальную погоду</button>
+      <button class="weather__button weather__button--forecast" v-bind:disabled="isDisabled" v-on:click="getForecastWeather()">Прогноз на 5 дней</button>
+    </div>
   </form>
   <div v-bind:class="weatherData != '' ? 'weather__type weather__type--actual' : 'weather__type weather__type--actual weather__type--hidden'">
     <button class="weather__cancel" v-on:click="weatherData = ''"></button>

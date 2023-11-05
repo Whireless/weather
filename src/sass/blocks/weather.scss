@@ -45,6 +45,24 @@
   }
 }
 
+.weather__button-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
+  margin-top: 25px;
+
+  @media (min-width: $tablet) {
+    row-gap: 20px;
+    margin-top: 30px;
+  }
+
+  @media (min-width: $desktop) {
+    row-gap: 25px;
+    margin-top: 35px;
+  }
+}
+
 .weather__button {
   font-size: inherit;
   display: flex;
@@ -52,7 +70,6 @@
   align-items: center;
   width: max-content;
   height: 40px;
-  margin-top: 25px;
   padding: 5px 15px;
   border: none;
   border-radius: 30px;
@@ -61,12 +78,10 @@
 
   @media (min-width: $tablet) {
     height: 45px;
-    margin-top: 35px;
   }
 
   @media (min-width: $desktop) {
     height: 50px;
-    margin-top: 45px;
   }
 
   &:hover:not(:disabled) {
@@ -116,12 +131,12 @@
 
     @media (min-width: $tablet) {
       width: 418px;
-      padding: 70px 15px 15px 15px;
+      padding: 65px 15px 15px 15px;
     }
   
     @media (min-width: $desktop) {
       width: 558px;
-      padding: 80px 20px 20px 20px;
+      padding: 75px 20px 20px 20px;
     }
   }
 
@@ -135,14 +150,14 @@
 .weather__cancel {
   width: 35px;
   height: 35px;
-  background-color: transparent;
+  background-color: $whitesmoke;
   background-image: url("/icons/cross.svg");
   background-position: center;
   background-repeat: no-repeat;
   margin-left: auto;
   padding: 0;
   border: none;
-  border: 1px solid $whitesmoke;
+  border: 1px solid $lightBlack;
   border-radius: 30px;
   cursor: pointer;
 
@@ -153,13 +168,13 @@
   }
 
   @media (min-width: $tablet) {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
 
   @media (min-width: $desktop) {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
   }
 }
 
