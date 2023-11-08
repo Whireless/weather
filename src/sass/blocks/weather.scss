@@ -29,6 +29,8 @@
   }
 
   &--forecast {
+    flex-direction: row;
+    flex-wrap: wrap;
     row-gap: 15px;
     width: 319px;
     padding: 7px;
@@ -54,14 +56,15 @@
 .weather__cancel {
   width: 35px;
   height: 35px;
-  background-color: $whitesmoke;
+  background-color: transparent;
   background-image: url("/icons/cross.svg");
   background-position: center;
   background-repeat: no-repeat;
   margin-left: auto;
   padding: 0;
+  backdrop-filter: $blur;
   border: none;
-  border: 1px solid $lightBlack;
+  border: 1px solid $whitesmoke;
   border-radius: 30px;
   cursor: pointer;
 
@@ -79,6 +82,10 @@
 .weather__title {
   line-height: 22px;
   text-align: center;
+
+  &--forecast {
+    flex-basis: 100%;
+  }
 
   @media (min-width: $tablet) {
     line-height: 24px;
@@ -158,7 +165,8 @@
 
   &--forecast {
     color: $black;
-    height: 89%;
+    flex-basis: 100%;
+    height: 80%;
     overflow-y: scroll;
     border: none;
     backdrop-filter: none;

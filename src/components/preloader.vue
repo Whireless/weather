@@ -5,9 +5,8 @@ export default {
   },
   computed: {
     preload() {
-      const page = document.querySelector('body');
       window.addEventListener('load', () => {
-        const preloader = page.querySelector('.preloader');
+        const preloader = document.querySelector('.preloader');
         preloader.classList.add('preloader--hidden');
       });
     },
@@ -17,6 +16,8 @@ export default {
 
 <template>
   <div class="preloader">
-    <div class="preloader__logo">{{ preload }}</div>
+    <p class="preloader__logo">{{ preload }}
+      <span class="weather__info">.easy</span>погода
+    </p>
   </div>
 </template>

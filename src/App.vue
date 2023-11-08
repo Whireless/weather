@@ -23,7 +23,7 @@ export default {
       <form-weather></form-weather>
       <footer class="main-footer">
         <p class="main-footer__dev">Разработано: <a href="https://github.com/Whireless">Whireless</a></p>
-        <p class="main-footer__version">Версия: 1.1.0</p>
+        <p class="main-footer__version">Версия: 1.1.2</p>
       </footer>
     </section>
   </main>
