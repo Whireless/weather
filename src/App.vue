@@ -2,9 +2,6 @@
 import preloader from './components/preloader.vue';
 import formWeather from './components/formWeather.vue';
 export default {
-  data() {
-    return {}
-  },
   components: {
     preloader,
     formWeather,
