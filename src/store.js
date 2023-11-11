@@ -106,32 +106,35 @@ export const useGlobalStore = defineStore('globalStore', {
 
         forecast.forEach((item, i) => {
           this.forecastData.push([]);
-      
-          const dateAndTime = item.dt_txt.split('').slice(5, 16).join('');
-          this.forecastData[i].push(dateAndTime);
+
+          const date = item.dt_txt.split('').slice(5, 16);
+          [date[0], date[1], date[3], date[4]] = [date[3], date[4], date[0], date[1]];
+          const itog = date.join('');
+
+          this.forecastData[i].push(itog);
           this.forecastData[i].push(`${Math.floor(item.main.temp)} °C`);
           this.forecastData[i].push(`${item.main.humidity} %`);
 
           const deg = item.wind.deg;
-            if(deg > 0 && deg < 20) {
-              this.forecastData[i].push('С');
-            } else if (deg >= 10 && deg < 80) {
-              this.forecastData[i].push('С-В');
-            } else if(deg >= 80 && deg < 100) {
-              this.forecastData[i].push('В');
-            } else if(deg >= 100 && deg < 170) {
-              this.forecastData[i].push('Ю-В');
-            } else if(deg >= 170 && deg < 190) {
-              this.forecastData[i].push('Ю');
-            } else if(deg >= 190 && deg < 260) {
-              this.forecastData[i].push('Ю-З');
-            } else if(deg >= 260 && deg < 280) {
-              this.forecastData[i].push('З');
-            } else if(deg >= 270 && deg < 360) {
-              this.forecastData[i].push('С-З');
-            }
+          if(deg > 0 && deg < 20) {
+            this.forecastData[i].push('С');
+          } else if (deg >= 10 && deg < 80) {
+            this.forecastData[i].push('С-В');
+          } else if(deg >= 80 && deg < 100) {
+            this.forecastData[i].push('В');
+          } else if(deg >= 100 && deg < 170) {
+            this.forecastData[i].push('Ю-В');
+          } else if(deg >= 170 && deg < 190) {
+            this.forecastData[i].push('Ю');
+          } else if(deg >= 190 && deg < 260) {
+            this.forecastData[i].push('Ю-З');
+          } else if(deg >= 260 && deg < 280) {
+            this.forecastData[i].push('З');
+          } else if(deg >= 270 && deg < 360) {
+            this.forecastData[i].push('С-З');
+          }
 
-            this.forecastData[i].push(`${Math.floor(item.wind.speed)} м/с`);
+          this.forecastData[i].push(`${Math.floor(item.wind.speed)} м/с`);
           const weatherKey = Object.keys(this.weatherList);
           const weatherValue = Object.values(this.weatherList);
 
