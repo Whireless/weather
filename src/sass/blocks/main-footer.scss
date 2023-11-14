@@ -15,18 +15,20 @@
   }
 }
 
-.main-footer__dev {
-  a {
-    color: $lightBlack;
-    text-decoration: none;
+.main-footer__link {
+  color: $lightBlack;
+  text-decoration: none;
+  border-bottom: 1px solid $lightBlack;
+  transition: $transition;
+
+  &:hover {
+    opacity: 0.5;
+    transition: $transition;
+  }
+
+  &--github {
     padding: 3px 6px;
     border: 1px solid $lightBlack;
     border-radius: 30px;
-    transition: $transition;
-
-    &:hover {
-      opacity: 0.5;
-      transition: $transition;
-    }
   }
 }

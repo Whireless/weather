@@ -1,21 +1,4 @@
-.main-content {
-  position: relative;
-  width: 335px;
-  margin: 5vh auto;
-  padding: 0 20px;
-
-  @media (min-width: $tablet) {
-    width: 450px;
-    padding: 0 40px;
-  }
-
-  @media (min-width: $desktop) {
-    width: 600px;
-    padding: 0 80px;
-  }
-}
-
-.main-content__intro {
+.main-header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,9 +9,17 @@
   border-radius: 30px;
 }
 
-.main-content__title {
-  font-size: 23px;
-  line-height: 27px;
+.main-header__title {
+  font-size: 25px;
+  line-height: 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: $transition;
+
+  &:hover {
+    opacity: 0.5;
+    transition: $transition;
+  }
 
   @media (min-width: $tablet) {
     font-size: 32px;
@@ -41,7 +32,7 @@
   }
 }
 
-.main-content__subtitle {
+.main-header__subtitle {
   font-size: 13px;
   text-decoration: underline;
 

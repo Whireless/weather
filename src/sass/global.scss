@@ -27,3 +27,20 @@ body {
     line-height: 23px;
   }
 }
+
+main {
+  position: relative;
+  width: 335px;
+  margin: 5vh auto;
+  padding: 0 20px;
+
+  @media (min-width: $tablet) {
+    width: 450px;
+    padding: 0 40px;
+  }
+
+  @media (min-width: $desktop) {
+    width: 600px;
+    padding: 0 80px;
+  }
+}

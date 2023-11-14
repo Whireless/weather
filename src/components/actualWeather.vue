@@ -26,7 +26,8 @@ export default {
 <template>
   <div v-bind:class="goActual">
     <button class="weather__cancel"
-    v-on:click="globalData['Сейчас: '] = ''"></button>
+            v-on:click="globalData['Сейчас: '] = ''">
+    </button>
     <h2 class="weather__title weather__title--actual">{{ nameCity }}</h2>
     <h3 class="weather__subtitle weather__subtitle--basic">Общее состояние:</h3>
     <ul class="weather__list weather__list--general">

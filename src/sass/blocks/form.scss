@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 30px;
   backdrop-filter: $blur;
   border: 1px solid $whitesmoke;
   border-radius: 30px;
-  padding: 30px;
 }
 
 .form__title {

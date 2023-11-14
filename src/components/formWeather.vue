@@ -5,10 +5,11 @@ import { useGlobalStore } from '../store';
 import { storeToRefs } from 'pinia';
 export default {
   setup() {
-    const { city, isDisabled, } = storeToRefs(useGlobalStore());
+    const { city, cities, isDisabled, } = storeToRefs(useGlobalStore());
     const { getActualWeather, getForecastWeather, } = useGlobalStore();
     return {
       city,
+      cities,
       isDisabled,
       getActualWeather,
       getForecastWeather,
@@ -27,7 +28,14 @@ export default {
     <input class="form__input-city"
     v-model="city"
     type="text"
+    list="cities"
     placeholder="напр.: Москва">
+    <datalist id="cities">
+      <option v-for="city in cities"
+      v-bind:key="city">
+      {{ city }}
+      </option>
+    </datalist>
     <div class="form__button-block">
       <button class="form__button form__button--actual"
       v-bind:disabled="isDisabled"
