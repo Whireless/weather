@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
 export const useGlobalStore = defineStore('globalStore', {
   state: () => ({
@@ -32,7 +33,42 @@ export const useGlobalStore = defineStore('globalStore', {
       'Порывы до: ': '',
     },
     // Данные для обработки погоды на 5 дней
-    forecastData: [],
+    months: [
+      'Января',
+      'Февраля',
+      'Марта',
+      'Апреля',
+      'Мая',
+      'Июня',
+      'Июля',
+      'Августа',
+      'Сентября',
+      'Октября',
+      'Ноября',
+      'Декабря',
+    ],
+    forecastData: [
+      {
+        title: '',
+        list: [],
+      },
+      {
+        title: '',
+        list: [],
+      },
+      {
+        title: '',
+        list: [],
+      },
+      {
+        title: '',
+        list: [],
+      },
+      {
+        title: '',
+        list: [],
+      },
+    ],
     // Города для автозаполнения
     cities: [
       // Столицы регионов
@@ -54,12 +90,13 @@ export const useGlobalStore = defineStore('globalStore', {
       // Остальные города
       'Норильск',  'Сочи', 'Гатчина', 'Армавир', 'Апшеронск', 
       'Геленджик', 'Темрюк', 'Азов',  'Новочеркасск', 'Новошахтинск',
-      'Туапсе', 'Конаково', 'Анапа', 'Ейск', 'Абинск', 
+      'Туапсе', 'Конаково', 'Анапа', 'Ейск', 'Абинск',
+      'Кайеркан',
 
       // Станицы, ПГТ и посёлки
       'Каневская', 'Новоминская', 'Староминская', 'Старощербиновская', 'Стародеревянковская',
       'Привольная', 'Копанская', 'Морской', 'Камышеватская', 'Крыловская',
-      'Глафировка', 'Николаевка',
+      'Глафировка', 'Николаевка', 'Козлово',
     ],
     // Информация о сайте
     aboutList: [
@@ -137,45 +174,58 @@ export const useGlobalStore = defineStore('globalStore', {
       axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
       .then(res => {
         const forecast = res.data.list;
-        this.forecastData = [];
+        let today = dayjs().date();
+        const dateList = [];
+        const itemsDate = [];
 
-        forecast.forEach((item, i) => {
-          this.forecastData.push([]);
+        this.forecastData.forEach((day, i) => {
+          this.months.forEach((month, j) => {
+            if(dayjs().month() === j) {
+              day.title = `${today + i} ${month}`;
+              day.list = [];
+              dateList.push(today + i);
+            }
+          });
 
-          const date = item.dt_txt.split('').slice(5, 16);
-          [date[0], date[1], date[3], date[4]] = [date[3], date[4], date[0], date[1]];
-          const itog = date.join('');
+          forecast.forEach(item => {
+            const date = item.dt_txt.split('').slice(8, 10).join('');
+            const time = item.dt_txt.split('').slice(11, 16).join('');
+            if(date == dateList[i]) {
+              itemsDate.push(date);
 
-          this.forecastData[i].push(itog);
-          this.forecastData[i].push(`${Math.floor(item.main.temp)} °C`);
-          this.forecastData[i].push(`${item.main.humidity} %`);
-
-          const deg = item.wind.deg;
-          if(deg > 0 && deg < 20) {
-            this.forecastData[i].push('С');
-          } else if (deg >= 10 && deg < 80) {
-            this.forecastData[i].push('С-В');
-          } else if(deg >= 80 && deg < 100) {
-            this.forecastData[i].push('В');
-          } else if(deg >= 100 && deg < 170) {
-            this.forecastData[i].push('Ю-В');
-          } else if(deg >= 170 && deg < 190) {
-            this.forecastData[i].push('Ю');
-          } else if(deg >= 190 && deg < 260) {
-            this.forecastData[i].push('Ю-З');
-          } else if(deg >= 260 && deg < 280) {
-            this.forecastData[i].push('З');
-          } else if(deg >= 270 && deg < 360) {
-            this.forecastData[i].push('С-З');
-          }
-
-          this.forecastData[i].push(`${Math.floor(item.wind.speed)} м/с`);
-          const weatherKey = Object.keys(this.weatherList);
-          const weatherValue = Object.values(this.weatherList);
-
-          weatherKey.forEach((w, index) => {
-            if (item.weather[0].main === w) {
-              this.forecastData[i].push(weatherValue[index]);
+              const arr3 = [];
+              arr3.push(time);
+              arr3.push(`${Math.floor(item.main.temp)} °C`);
+              arr3.push(`${item.main.humidity} %`);
+              const deg = item.wind.deg;
+              if(deg > 0 && deg < 20) {
+                arr3.push('С');
+              } else if (deg >= 10 && deg < 80) {
+                arr3.push('С-В');
+              } else if(deg >= 80 && deg < 100) {
+                arr3.push('В');
+              } else if(deg >= 100 && deg < 170) {
+                arr3.push('Ю-В');
+              } else if(deg >= 170 && deg < 190) {
+                arr3.push('Ю');
+              } else if(deg >= 190 && deg < 260) {
+                arr3.push('Ю-З');
+              } else if(deg >= 260 && deg < 280) {
+                arr3.push('З');
+              } else if(deg >= 270 && deg < 360) {
+                arr3.push('С-З');
+              }
+              arr3.push(`${Math.floor(item.wind.speed)} м/с`);
+              
+              const weatherKey = Object.keys(this.weatherList);
+              const weatherValue = Object.values(this.weatherList);
+    
+              weatherKey.forEach((w, index) => {
+                if (item.weather[0].main === w) {
+                  arr3.push(weatherValue[index]);
+                }
+              });
+              day.list.push(arr3);
             }
           });
         });

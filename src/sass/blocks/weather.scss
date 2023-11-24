@@ -96,6 +96,31 @@
   }
 }
 
+.weather__data {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+
+  &--forecast {
+    color: $black;
+    flex-basis: 100%;
+    height: 80%;
+    overflow-y: scroll;
+    border: none;
+    backdrop-filter: none;
+  }
+}
+
+.weather__date-title {
+  text-align: center;
+  color: $lightBlack;
+  width: max-content;
+  padding: 5px 15px;
+  border: 1px solid $lightBlack;
+  border-radius: 20px;
+  margin: 0 auto 15px auto;
+}
+
 .weather__subtitle {
   position: relative;
   align-self: center;
@@ -162,15 +187,6 @@
   flex-direction: column;
   row-gap: 10px;
   list-style: none;
-
-  &--forecast {
-    color: $black;
-    flex-basis: 100%;
-    height: 80%;
-    overflow-y: scroll;
-    border: none;
-    backdrop-filter: none;
-  }
 }
 
 .weather__item {
@@ -220,15 +236,6 @@
     margin: 0 auto;
     padding-bottom: 5px;
     border-bottom: 1px solid $black;
-
-    &::before {
-      background-image: url("/icons/date.svg");
-      background-repeat: no-repeat;
-      width: 20px;
-      height: 20px;
-      left: 80px;
-      bottom: 4px;
-    }
   }
 
   &:nth-of-type(2) {
