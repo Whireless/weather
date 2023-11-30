@@ -34,18 +34,54 @@ export const useGlobalStore = defineStore('globalStore', {
     },
     // Данные для обработки погоды на 5 дней
     months: [
-      'Января',
-      'Февраля',
-      'Марта',
-      'Апреля',
-      'Мая',
-      'Июня',
-      'Июля',
-      'Августа',
-      'Сентября',
-      'Октября',
-      'Ноября',
-      'Декабря',
+      {
+        name: 'Января',
+        days: 31,
+      },
+      {
+        name: 'Февраля',
+        days: 28,
+      },
+      {
+        name: 'Марта',
+        days: 31,
+      },
+      {
+        name: 'Апреля',
+        days: 30,
+      },
+      {
+        name: 'Мая',
+        days: 31,
+      },
+      {
+        name: 'Июня',
+        days: 30,
+      },
+      {
+        name: 'Июля',
+        days: 31,
+      },
+      {
+        name: 'Августа',
+        days: 31,
+      },
+      {
+        name: 'Сентября',
+        days: 30,
+      },
+      {
+        name: 'Октября',
+        days: 31,
+      },
+      {
+        name: 'Ноября',
+        days: 30,
+      },
+      {
+        name: 'Декабря',
+        days: 31,
+      },
     ],
     forecastData: [
       {
@@ -91,12 +127,14 @@ export const useGlobalStore = defineStore('globalStore', {
       'Норильск',  'Сочи', 'Гатчина', 'Армавир', 'Апшеронск', 
       'Геленджик', 'Темрюк', 'Азов',  'Новочеркасск', 'Новошахтинск',
       'Туапсе', 'Конаково', 'Анапа', 'Ейск', 'Абинск',
-      'Кайеркан',
+      'Кайеркан', 'Керчь', 'Усть-Лабинск', 'Таганрог', 'Адлер',
+      'Новороссийск', 'Валуйки', 'Старый Оскол', 'Шебекено',
 
       // Станицы, ПГТ и посёлки
       'Каневская', 'Новоминская', 'Староминская', 'Старощербиновская', 'Стародеревянковская',
       'Привольная', 'Копанская', 'Морской', 'Камышеватская', 'Крыловская',
-      'Глафировка', 'Николаевка', 'Козлово',
+      'Глафировка', 'Николаевка', 'Козлово', 'Динская', 'Васюринская', 'Ленинградская',
+      'Лазаревское',
     ],
     // Информация о сайте
     aboutList: [
@@ -174,16 +212,25 @@ export const useGlobalStore = defineStore('globalStore', {
       axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
       .then(res => {
         const forecast = res.data.list;
-        let today = dayjs().date();
+        // Получаем актуальный день и месяц
+        let actualDay = dayjs().date();
+        let actualMonth = dayjs().month();
         const dateList = [];
-        const itemsDate = [];
 
         this.forecastData.forEach((day, i) => {
           this.months.forEach((month, j) => {
-            if(dayjs().month() === j) {
-              day.title = `${today + i} ${month}`;
+            if(actualMonth === j) {
               day.list = [];
-              dateList.push(today + i);
+              let dayNum = actualDay + i;
+              if (dayNum <= month.days) {
+                day.title = `${actualDay + i} ${month.name}`;
+                dateList.push(actualDay + i);
+              } else {
+                let nextMonth = this.months[j + 1];
+                dayNum = 0;
+                day.title = `${dayNum + i} ${nextMonth.name}`;
+                dateList.push(dayNum + i);
+              }
             }
           });
 
@@ -191,8 +238,6 @@ export const useGlobalStore = defineStore('globalStore', {
             const date = item.dt_txt.split('').slice(8, 10).join('');
             const time = item.dt_txt.split('').slice(11, 16).join('');
             if(date == dateList[i]) {
-              itemsDate.push(date);
-
               const arr3 = [];
               arr3.push(time);
               arr3.push(`${Math.floor(item.main.temp)} °C`);
@@ -232,4 +277,4 @@ export const useGlobalStore = defineStore('globalStore', {
       })
     },
   }
-})
+});

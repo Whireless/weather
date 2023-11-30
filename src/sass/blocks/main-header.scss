@@ -4,9 +4,17 @@
   align-items: center;
   backdrop-filter: $blur;
   margin-bottom: 20px;
-  padding: 15px 20px;
+  padding: 10px 15px;
   border: 1px solid $whitesmoke;
   border-radius: 30px;
+
+  @media (min-width: $tablet) {
+    padding: 15px 20px;
+  }
+
+  @media (min-width: $desktop) {
+    padding: 20px 25px;
+  }
 }
 
 .main-header__title {

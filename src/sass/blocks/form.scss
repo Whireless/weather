@@ -2,10 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px;
+  padding: 15px;
   backdrop-filter: $blur;
   border: 1px solid $whitesmoke;
   border-radius: 30px;
+
+  @media (min-width: $tablet) {
+    padding: 20px;
+  }
+
+  @media (min-width: $desktop) {
+    padding: 25px;
+  }
 }
 
 .form__title {
@@ -25,6 +33,7 @@
 }
 
 .form__input-city {
+  font-size: 14px;
   width: 210px;
   height: 30px;
   padding: 7px 10px;

@@ -18,7 +18,7 @@ export default {
     <footer class="main-footer">
       <router-link to="/about" class="main-footer__link main-footer__link--about">О сайте</router-link>
       <router-link to="/home" class="main-footer__link main-footer__link--home">На главную</router-link>
-      <p class="main-footer__version">Версия: 1.0.0</p>
+      <p class="main-footer__version">Версия: 1.0.1</p>
       <a href="https://github.com/Whireless/weather" class="main-footer__link main-footer__link--github">Github</a>
     </footer>
   </main>
