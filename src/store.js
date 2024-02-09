@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
-import dayjs from 'dayjs';
 
 export const useGlobalStore = defineStore('globalStore', {
   state: () => ({
@@ -149,6 +148,7 @@ export const useGlobalStore = defineStore('globalStore', {
     nameCity(state) {
       return '«' + state.city + '»';
     },
+
     // Включение/отключение кнопки получения погоды
     isDisabled(state) {
       if(state.city !== '' && state.city.length > 1) {
@@ -159,19 +159,59 @@ export const useGlobalStore = defineStore('globalStore', {
     },
   },
   actions: {
+    // Основное состояние погоды
+    getMainСondition(mainСondition, arr) {
+      let main = '';
+      const weathers = Object.entries(this.weatherList);
+      weathers.forEach((w, i) => {
+        if (mainСondition === w[0]) {
+          main = weathers[i][1];
+        }
+      });
+
+      if(arr) {
+        return arr.push(main);
+      }
+      return main;
+    },
+
+    // Направление ветра
+    getWindDeg (actualDeg, arr) {
+      const deg = actualDeg;
+      let direction = '';
+      if(deg > 0 && deg < 20) {
+        direction = 'Северный';
+      } else if (deg >= 10 && deg < 80) {
+        direction ='Северо-Восточный';
+      } else if(deg >= 80 && deg < 100) {
+        direction = 'Восточный';
+      } else if(deg >= 100 && deg < 170) {
+        direction = 'Юго-Восточный';
+      } else if(deg >= 170 && deg < 190) {
+        direction = 'Южный';
+      } else if(deg >= 190 && deg < 260) {
+        direction = 'Юго-Западный';
+      } else if(deg >= 260 && deg < 280) {
+        direction = 'Западный';
+      } else if(deg >= 270 && deg < 360) {
+        direction = 'Северо-Западный';
+      } else {
+        if(arr) {
+          direction = 'Переменный';
+        }
+      }
+
+      if(arr) {
+        arr.push(direction);
+      }
+      return direction;
+    },
+
     // Запрос актуальной погоды
     getActualWeather() {
       axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
       .then(res => {
-        // Общее состояние и влажность
-        const weatherKey = Object.keys(this.weatherList);
-        const weatherValue = Object.values(this.weatherList);
-
-        weatherKey.forEach((w, i) => {
-          if (res.data.weather[0].main === w) {
-            this.globalData['Сейчас: '] = weatherValue[i];
-          }
-        });
+        this.globalData['Сейчас: '] = this.getMainСondition(res.data.weather[0].main);
         this.globalData['Влажность: '] = `${res.data.main.humidity} %`;
 
         // Температура
@@ -186,35 +226,19 @@ export const useGlobalStore = defineStore('globalStore', {
           this.windData['Порывы до: '] = 'без порывов';
         }
 
-        // Определение направления ветра по градусам
-        const deg = res.data.wind.deg;
-        if(deg > 0 && deg < 20) {
-          this.windData['Направление: '] = 'Северный';
-        } else if (deg >= 10 && deg < 80) {
-          this.windData['Направление: '] = 'Северо-Восточный';
-        } else if(deg >= 80 && deg < 100) {
-          this.windData['Направление: '] = 'Восточный';
-        } else if(deg >= 100 && deg < 170) {
-          this.windData['Направление: '] = 'Юго-Восточный';
-        } else if(deg >= 170 && deg < 190) {
-          this.windData['Направление: '] = 'Южный';
-        } else if(deg >= 190 && deg < 260) {
-          this.windData['Направление: '] = 'Юго-Западный';
-        } else if(deg >= 260 && deg < 280) {
-          this.windData['Направление: '] = 'Западный';
-        } else if(deg >= 270 && deg < 360) {
-          this.windData['Направление: '] = 'Северо-Западный';
-        }
+        this.windData['Направление: '] = this.getWindDeg(res.data.wind.deg);
       })
     },
+
     // Запрос прогноза на 5 дней
     getForecastWeather() {
       axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${this.city}&units=metric&appid=3df6733d821f7b6f821fc99652fcb7a4`)
       .then(res => {
         const forecast = res.data.list;
         // Получаем актуальный день и месяц
-        let actualDay = dayjs().date();
-        let actualMonth = dayjs().month();
+        const date = new Date();
+        const actualDay = date.getDate();
+        const actualMonth = date.getMonth();
         const dateList = [];
 
         this.forecastData.forEach((day, i) => {
@@ -242,34 +266,9 @@ export const useGlobalStore = defineStore('globalStore', {
               arr3.push(time);
               arr3.push(`${Math.floor(item.main.temp)} °C`);
               arr3.push(`${item.main.humidity} %`);
-              const deg = item.wind.deg;
-              if(deg > 0 && deg < 20) {
-                arr3.push('С');
-              } else if (deg >= 10 && deg < 80) {
-                arr3.push('С-В');
-              } else if(deg >= 80 && deg < 100) {
-                arr3.push('В');
-              } else if(deg >= 100 && deg < 170) {
-                arr3.push('Ю-В');
-              } else if(deg >= 170 && deg < 190) {
-                arr3.push('Ю');
-              } else if(deg >= 190 && deg < 260) {
-                arr3.push('Ю-З');
-              } else if(deg >= 260 && deg < 280) {
-                arr3.push('З');
-              } else if(deg >= 270 && deg < 360) {
-                arr3.push('С-З');
-              }
+              this.getWindDeg(item.wind.deg, arr3);
               arr3.push(`${Math.floor(item.wind.speed)} м/с`);
-              
-              const weatherKey = Object.keys(this.weatherList);
-              const weatherValue = Object.values(this.weatherList);
-    
-              weatherKey.forEach((w, index) => {
-                if (item.weather[0].main === w) {
-                  arr3.push(weatherValue[index]);
-                }
-              });
+              this.getMainСondition(item.weather[0].main, arr3);
               day.list.push(arr3);
             }
           });
